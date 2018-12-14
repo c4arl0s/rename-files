@@ -19,7 +19,7 @@ find . -name "*" -type f | sort -n -r | while read files
         
 				if [ $nameFiles_procesados == $file ]
         	then
-            	echo "$CYAN $file ya esta procesado ... sin cambios"
+            	echo "$CYAN $file yadirectoryocesado ... sin cambios"
         	else
             	mv "$file" "$nameFiles_procesados"
             	echo "renombrando archivo: $VERDE $file a $ROJO $nameFiles_procesados"
@@ -28,14 +28,14 @@ find . -name "*" -type f | sort -n -r | while read files
 
 # renombrando despues directorios
 
-find . -name "*" -type d | sort -n -r | while read all_dirs    
+find . -name "*" -type d | sort -n -r | while read directory    
     do
-        dirs_procesados=`echo $all_dirs | tr ' ' '-' | tr '_' '-' | tr '[a-z]' '[A-Z]'`
-        if [ $dirs_procesados == $all_dirs ]
+        dirs_procesados=`echo $directory | tr ' ' '-' | tr '_' '-' | tr '[a-z]' '[A-Z]'`
+        if [ $dirs_procesados == $directory ]
         	then
-          	echo "directorio: $CYAN $all_dirs ya esta procesado ... sin cambios"
+          	echo "directorio: $CYAN $directory ya esta procesado ... sin cambios"
         	else
-            mv "$all_dirs" "$dirs_procesados"
-            echo "renombrando Directorio: $VERDE $all_dirs a $ROJO $dir_procesados"
+            mv "$directory" "$dirs_procesados"
+            echo "renombrando Directorio: $VERDE $directory a $ROJO $dir_procesados"
         fi
     done
