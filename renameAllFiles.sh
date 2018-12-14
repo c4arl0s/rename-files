@@ -9,20 +9,20 @@
 
 # renombrando primero archivos
 
-find . -name "*" -type f | sort -n -r | while read all_files    
+find . -name "*" -type f | sort -n -r | while read files    
     do
         echo "Primero renombraremos archivos"
 				echo "First letter capitalized"
-				firstLetterCapitalized=`echo $all_files | awk '{for (i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2)} 1'`
+				firstLetterCapitalized=`echo $file | awk '{for (i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2)} 1'`
         echo "archivos sin espacios, guiones bajos y de mayusculas a minisculas"
         nameFiles_procesados=`echo $firstLetterCapitalized | tr ' ' '-' | tr '_' '-'`
         
-				if [ $nameFiles_procesados == $all_files ]
+				if [ $nameFiles_procesados == $file ]
         	then
-            	echo "$CYAN $all_files ya esta procesado ... sin cambios"
+            	echo "$CYAN $file ya esta procesado ... sin cambios"
         	else
-            	mv "$all_files" "$nameFiles_procesados"
-            	echo "renombrando archivo: $VERDE $all_files a $ROJO $nameFiles_procesados"
+            	mv "$file" "$nameFiles_procesados"
+            	echo "renombrando archivo: $VERDE $file a $ROJO $nameFiles_procesados"
         fi
     done
 
