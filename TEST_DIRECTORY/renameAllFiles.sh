@@ -1,4 +1,3 @@
-```bash
 # find .        find in current directory
 # -name "*"     find all file names
 # -type         of type
@@ -40,4 +39,3 @@ do
         echo "renaming directory: $DIRECTORY_NAME to $PROCESSED_DIRECTORY_NAME"
     fi
 done
-```
