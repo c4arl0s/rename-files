@@ -9,33 +9,29 @@
 
 # first rename files
 
-find . -name "*" -type f | sort -n -r | while read FILE_NAME    
-do
-    echo "First rename file"
-    echo "First letter capitalized ..."
-    firstLetterCapitalized=`echo $FILE_NAME | awk '{for (i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2)} 1'`
-    echo "replace empty spaces and underscore with hyphen"
-    PROCESSED_FILE_NAME=`echo $firstLetterCapitalized | tr ' ' '-' | tr '_' '-'`
-    
-    if [ "$PROCESSED_FILE_NAME" = "$FILE_NAME" ]
-    then
-        echo "$FILE_NAME is a suitable name ... no changes"
-    else
-        mv "$FILE_NAME" "$PROCESSED_FILE_NAME"
-        echo "renaming file: $FILE_NAME to $PROCESSED_FILE_NAME"
-    fi
+find . -name "*" -type f | sort -n -r | while read file_name; do
+  echo "First rename file"
+  echo "First letter capitalized ..."
+  first_letter_capitalized=$(echo ${file_name} | awk '{for (i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2)} 1')
+  echo "replace empty spaces and underscore with hyphen"
+  processed_file_name=$(echo ${first_letter_capitalized} | tr ' ' '-' | tr '_' '-')
+  
+  if [ "${processed_file_name}" = "${file_name}" ]; then
+    echo "${file_name} is a suitable name ... no changes"
+  else
+    mv "${file_name}" "${processed_file_name}"
+    echo "renaming file: ${file_name} to ${processed_file_name}"
+  fi
 done
 
 # second rename directories
 
-find . -name "*" -type d | sort -n -r | while read DIRECTORY_NAME    
-do
-    PROCESSED_DIRECTORY_NAME=`echo $DIRECTORY_NAME | tr ' ' '-' | tr '_' '-' | tr '[a-z]' '[A-Z]'`
-    if [ "$PROCESSED_DIRECTORY_NAME" = "$DIRECTORY_NAME" ]
-    then
-        echo "directory: $DIRECTORY_NAME is a suitable name ... no changes"
-    else
-        mv "$DIRECTORY_NAME" "$PROCESSED_DIRECTORY_NAME"
-        echo "renaming directory: $DIRECTORY_NAME to $PROCESSED_DIRECTORY_NAME"
-    fi
+find . -name "*" -type d | sort -n -r | while read directory_name; do
+  processed_directory_name=$(echo ${directory_name} | tr ' ' '-' | tr '_' '-' | tr '[a-z]' '[A-Z]')
+  if [ "${processed_directory_name}" = "${directory_name}" ]; then
+    echo "directory: ${directory_name} is a suitable name ... no changes"
+  else
+    mv "${directory_name}" "${processed_directory_name}"
+    echo "renaming directory: ${directory_name} to ${processed_directory_name}"
+  fi
 done
